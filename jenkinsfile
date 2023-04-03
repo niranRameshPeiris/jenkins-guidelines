@@ -3,7 +3,7 @@ def groovyScript
 pipeline {
     agent any 
     parameters{
-        string(name: 'STAGE', defaultValue: 'BUILD', description: 'Stage to be executed')
+        string(name: 'VERSION', defaultValue: 'Test', description: 'Stage to be executed')
     }
     stages {
         stage('Pipleline Initialization') { 
@@ -16,12 +16,10 @@ pipeline {
         }
         stage('Building Docker Image') { 
             steps {
-                params.STAGE = "BUILD"
                 script {
                     groovyScript.startingMessage()
                 }
                 mkdir '/Users/niran/Documents/Jenkins/Project'
-                pwd
                 script {
                     groovyScript.endingMessage()
                 }
@@ -29,7 +27,6 @@ pipeline {
         }
         stage('Running Docker Image') { 
             steps {
-                params.STAGE = "RUNNING"
                 script {
                     groovyScript.startingMessage()
                 }
