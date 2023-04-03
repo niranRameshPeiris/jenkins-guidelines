@@ -21,7 +21,7 @@ pipeline {
                 }
                 sh 'pwd'
                 script{
-                    sh 'podman images'
+                    sh 'docker images'
                 }
                 script {
                     groovyScript.endingMessage()
