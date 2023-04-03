@@ -1,20 +1,55 @@
+def groovyScript
+
 pipeline {
     agent any 
+    parameters{
+        string(name: 'STAGE', defaultValue: 'BUILD', description: 'Stage to be executed')
+    }
     stages {
         stage('Pipleline Initialization') { 
             steps {
-                echo "build..."
+                echo "Initializing the project."
+                script{
+                    groovyScript = load "script.groovy"
+                }
             }
         }
         stage('Building Docker Image') { 
             steps {
-                echo "test..."
+                params.STAGE = "BUILD"
+                script {
+                    groovyScript.startingMessage()
+                }
+                mkdir '/Users/niran/Documents/Jenkins/Project'
+                pwd
+                script {
+                    groovyScript.endingMessage()
+                }
             }
         }
         stage('Running Docker Image') { 
             steps {
-                echo "deploy..."
+                params.STAGE = "RUNNING"
+                script {
+                    groovyScript.startingMessage()
+                }
+
+
+                script {
+                    groovyScript.endingMessage()
+                }
             }
+        }
+    }
+    post {
+        always{
+            echo "Pipleline finished..."
+        }
+        success{
+            echo "Pipleline finished successfully..."
+        }
+        failure{
+            echo "Pipleline failure..."
         }
     }
 }

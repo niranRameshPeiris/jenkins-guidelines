@@ -1,9 +1,9 @@
-def buildApp(){
-    echo 'Grovy script..'
+def startingMessage(){
+    echo "Starting stage: ${params.STAGE}"
 }
 
-def testApp(){
-    echo 'Test script..'
+def endingMessage(){
+    echo "Ending stage: ${params.STAGE}"
 }
 
 return this
