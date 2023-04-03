@@ -20,7 +20,9 @@ pipeline {
                     groovyScript.startingMessage()
                 }
                 sh 'pwd'
-                sh 'podman images'
+                script{
+                    sh 'podman images'
+                }
                 script {
                     groovyScript.endingMessage()
                 }
