@@ -19,7 +19,8 @@ pipeline {
                 script {
                     groovyScript.startingMessage()
                 }
-                mkdir '/Users/niran/Documents/Jenkins/Project'
+                sh 'pwd'
+                sh 'podman images'
                 script {
                     groovyScript.endingMessage()
                 }
