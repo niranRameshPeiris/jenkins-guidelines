@@ -1,17 +1,17 @@
 pipeline {
     agent any 
     stages {
-        stage('Build') { 
+        stage('Pipleline Initialization') { 
             steps {
                 echo "build..."
             }
         }
-        stage('Test') { 
+        stage('Building Docker Image') { 
             steps {
                 echo "test..."
             }
         }
-        stage('Deploy') { 
+        stage('Running Docker Image') { 
             steps {
                 echo "deploy..."
             }
