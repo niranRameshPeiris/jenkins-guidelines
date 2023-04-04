@@ -20,6 +20,24 @@ pipeline {
                 }
             }
         }
+
+        stage('Building HTML page') { 
+            steps {
+                sh "echo '${MESSAGE}' > index.html"
+            }
+        }
+
+        stage('Selecting the Version') { 
+            when {
+                expression {
+                    params.displayVersion 
+                }
+            }
+            steps {
+                sh "echo ' | Version is: ${VERSION}' >> index.html"
+            }
+        }
+
         stage('Building Docker Image') { 
             when {
                 expression {
@@ -27,9 +45,7 @@ pipeline {
                 }
             }
             steps {
-                sh "echo '${MESSAGE}' > index.html"
-
-                
+                sh "Building image"
                 // sh "podman build -t jenkins-nginx-test-image ."
             }
 
