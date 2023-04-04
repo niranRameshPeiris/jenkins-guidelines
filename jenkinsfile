@@ -4,6 +4,8 @@ pipeline {
     agent any 
     environment { 
         PIPELINE_NAME = "Jenkins-Test"
+        USER = ''
+        PWD = ''
     }
     parameters {
         string(name: 'MESSAGE', defaultValue: 'Hello World', description: 'Message to be displayed in the web page')
