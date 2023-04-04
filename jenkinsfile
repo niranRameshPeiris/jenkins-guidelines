@@ -2,7 +2,7 @@ def groovyScript
 
 pipeline {
     agent any 
-    enviroment { 
+    environment { 
         PIPELINE_NAME = "Jenkins Test Pipeline"
     }
     parameters {
@@ -29,7 +29,9 @@ pipeline {
             steps {
                 sh "echo '${MESSAGE}' > index.html"
 
-                
+                if (displayVersion) {
+                    sh "echo '${VERSION}' >> index.html"
+                }
                 // sh "podman build -t jenkins-nginx-test-image ."
             }
 

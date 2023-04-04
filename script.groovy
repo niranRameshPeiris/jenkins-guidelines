@@ -1,5 +1,5 @@
 def initMessage(){
-    echo "Starting pipeline : ${PIPELINE_NAME}"
+    echo "Starting pipeline : ${env.PIPELINE_NAME}"
 }
 
 return this
