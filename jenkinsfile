@@ -29,25 +29,11 @@ pipeline {
             steps {
                 sh "echo '${MESSAGE}' > index.html"
 
-                if (displayVersion) {
-                    sh "echo '${VERSION}' >> index.html"
-                }
+                
                 // sh "podman build -t jenkins-nginx-test-image ."
             }
 
-            when {
-                expression {
-                    VERSION == '2.0'
-                }
-            }
-            steps {
-                sh "echo '${MESSAGE}' > index.html"
-
-                if (displayVersion) {
-                    sh "echo '${VERSION}' >> index.html"
-                }
-                // sh "podman build -t jenkins-nginx-test-image ."
-            }
+            
         }
         stage('Running Docker Image') { 
             steps {
