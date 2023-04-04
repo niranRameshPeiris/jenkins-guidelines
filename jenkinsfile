@@ -62,18 +62,28 @@ pipeline {
         stage('Testing Docker Image') { 
             steps {
                 sh "curl http://localhost:8090"
+                echo "Sleeping for mannual testing..."
+                sh "sleep 60"
+            }
+        }
+
+        stage('Removing Docker Image') { 
+            steps {
+                echo "Removing docker image"
+                sh "podman image rm jenkins-nginx-test-image -f"
             }
         }
     }
     post {
         always{
-            echo "Pipleline finished..."
+            echo "========================================================="
+            echo "========================================================="
         }
         success{
-            echo "Pipleline finished successfully..."
+            echo "SUCCESS!!"
         }
         failure{
-            echo "Pipleline failure..."
+            echo "FAILURE!!"
         }
     }
 }
