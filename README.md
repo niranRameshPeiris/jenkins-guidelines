@@ -117,7 +117,6 @@ pipeline {
 }
 ```
 # Write Groovy Scripts
-
 ```
 def groovyScript
 
@@ -142,6 +141,8 @@ pipeline {
     }
 }
 ```
+## Triggers
+We can use 'https://ngrok.com/download' to expose local Jenkins to the public
 
 # Reference
 https://www.youtube.com/watch?v=7KCS70sCoK0&t=481s&ab_channel=TechWorldwithNana
