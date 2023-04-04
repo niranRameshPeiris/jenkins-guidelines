@@ -1,10 +1,14 @@
 def groovyScript
-def STAGE
 
 pipeline {
     agent any 
+    enviroment { 
+        PIPELINE_NAME = "Jenkins Test Pipeline"
+    }
     parameters{
         string(name: 'VERSION', defaultValue: 'Test', description: 'Stage to be executed')
+        choice(name: 'VERSION', choices: [ '1.0', '1.2'] , description: 'Version of the build')
+        booleanParam(name: 'displayVersion', defaultValue: true, description: 'Display version or not')
     }
     stages {
         stage('Pipleline Initialization') { 
@@ -12,33 +16,28 @@ pipeline {
                 echo "Initializing the project."
                 script{
                     groovyScript = load "script.groovy"
+                    groovyScript.initMessage()
                 }
             }
         }
         stage('Building Docker Image') { 
             steps {
-                script {
-                    STAGE = "BUILD"
-                    groovyScript.startingMessage()
-                }
+                
                 sh 'ls'
+
                 // sh "podman build -t jenkins-nginx-test-image ."
-                script {
-                    groovyScript.endingMessage()
-                }
+                
             }
         }
         stage('Running Docker Image') { 
             steps {
-                script {
-                    STAGE = "RUNNING"
-                    groovyScript.startingMessage("RUNNING")
-                }
+                
+            }
+        }
 
-
-                script {
-                    groovyScript.endingMessage("RUNNING")
-                }
+        stage('Testing Docker Image') { 
+            steps {
+                
             }
         }
     }

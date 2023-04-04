@@ -1,9 +1,5 @@
-def startingMessage(){
-    echo "Starting stage: ${STAGE}"
-}
-
-def endingMessage(){
-    echo "Ending stage: ${STAGE}"
+def initMessage(){
+    echo "Starting pipeline : ${PIPELINE_NAME}"
 }
 
 return this
