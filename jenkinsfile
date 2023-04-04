@@ -43,15 +43,11 @@ pipeline {
                 }
             }
             steps {
-                script {
-                    withCredentials([
-                        usernamePassword(credentials: 'nginx-credentials', usernameVariable: USER, passwordVariable: PWD)
-                    ]) {
-                        sh "echo 'Nginx Credentials: ${USER} | ${PWD}' >> index.html" 
-                    }
-                    
-                }
-                
+                withCredentials([
+                    usernamePassword(credentials: 'nginx-credentials', usernameVariable: USER, passwordVariable: PWD)
+                ]) {
+                    sh "echo 'Nginx Credentials: ${USER} | ${PWD}' >> index.html" 
+                } 
             }
         }
 
