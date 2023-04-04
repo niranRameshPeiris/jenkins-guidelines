@@ -20,9 +20,7 @@ pipeline {
                     groovyScript.startingMessage()
                 }
                 sh 'ls'
-                script{
-                    sh 'docker images'
-                }
+                sh 'docker images'
                 script {
                     groovyScript.endingMessage()
                 }
