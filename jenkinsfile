@@ -20,7 +20,7 @@ pipeline {
                     groovyScript.startingMessage()
                 }
                 sh 'ls'
-                sh 'docker images'
+                sh "docker version"
                 script {
                     groovyScript.endingMessage()
                 }
