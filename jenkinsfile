@@ -34,7 +34,12 @@ pipeline {
                 }
             }
             steps {
-                sh "echo ' | Version is: ${VERSION}' >> index.html"
+                if (params.VERSION == "1.0" ) {
+                    sh "echo ' | Test is: ${VERSION}' >> index.html"        
+                }
+                if (params.VERSION == "2.0" ) {
+                    sh "echo ' | Build is: ${VERSION}' >> index.html"        
+                }
             }
         }
 
@@ -45,7 +50,7 @@ pipeline {
                 }
             }
             steps {
-                sh "Building image"
+                echo "Building image"
                 // sh "podman build -t jenkins-nginx-test-image ."
             }
 
