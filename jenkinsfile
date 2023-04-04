@@ -6,8 +6,8 @@ pipeline {
         PIPELINE_NAME = "Jenkins Test Pipeline"
     }
     parameters{
-        string(name: 'VERSION', defaultValue: 'Test', description: 'Stage to be executed')
-        choice(name: 'VERSION', choices: [ '1.0', '1.2'] , description: 'Version of the build')
+        string(name: 'MESSAGE', defaultValue: 'Hello World', description: 'Message to be displayed in the web page')
+        choice(name: 'VERSION', choices: [ '1.0', '2.0'] , description: 'Version of the build')
         booleanParam(name: 'displayVersion', defaultValue: true, description: 'Display version or not')
     }
     stages {
@@ -21,17 +21,37 @@ pipeline {
             }
         }
         stage('Building Docker Image') { 
+            when {
+                expression {
+                    VERSION == '1.0'
+                }
+            }
             steps {
-                
-                sh 'ls'
+                sh "echo '${MESSAGE}' > index.html"
 
+                if (displayVersion) {
+                    sh "echo '${VERSION}' >> index.html"
+                }
                 // sh "podman build -t jenkins-nginx-test-image ."
-                
+            }
+
+            when {
+                expression {
+                    VERSION == '2.0'
+                }
+            }
+            steps {
+                sh "echo '${MESSAGE}' > index.html"
+
+                if (displayVersion) {
+                    sh "echo '${VERSION}' >> index.html"
+                }
+                // sh "podman build -t jenkins-nginx-test-image ."
             }
         }
         stage('Running Docker Image') { 
             steps {
-                
+                sh "cat index.html"
             }
         }
 
