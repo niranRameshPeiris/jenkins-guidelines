@@ -68,13 +68,12 @@ pipeline {
 }
 ```
 # Using Credintials
-Before trying this out we have to define credentials 
+Before trying this out we have to define credentials.
 ```
 enviroment{
         CREDENTIALS = credentials('id')
     }
 ```
-
 ```
 withCredentials([
     usernamePassword(credentials: 'id', usernameVariable: USER, passwordVariable: PWD)
