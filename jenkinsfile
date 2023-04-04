@@ -20,7 +20,7 @@ pipeline {
                     groovyScript.startingMessage()
                 }
                 sh 'ls'
-                sh "docker version"
+                sh "podman version"
                 script {
                     groovyScript.endingMessage()
                 }
