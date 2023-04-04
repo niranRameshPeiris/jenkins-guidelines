@@ -14,7 +14,7 @@ pipeline {
         stage('Pipleline Initialization') { 
             steps {
                 echo "Initializing the project."
-                script{
+                script {
                     groovyScript = load "script.groovy"
                     groovyScript.initMessage()
                 }
