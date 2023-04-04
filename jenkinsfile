@@ -3,7 +3,7 @@ def groovyScript
 pipeline {
     agent any 
     environment { 
-        PIPELINE_NAME = "Jenkins Test Pipeline"
+        PIPELINE_NAME = "Jenkins-Test"
     }
     parameters {
         string(name: 'MESSAGE', defaultValue: 'Hello World', description: 'Message to be displayed in the web page')
@@ -11,9 +11,9 @@ pipeline {
         booleanParam(name: 'displayVersion', defaultValue: true, description: 'Display version or not')
     }
     stages {
-        stage('Pipleline Initialization') { 
+        stage('Init') { 
             steps {
-                echo "Initializing the project."
+                echo "========================================================="
                 script {
                     groovyScript = load "script.groovy"
                     groovyScript.initMessage()
@@ -21,13 +21,13 @@ pipeline {
             }
         }
 
-        stage('Building HTML page') { 
+        stage('Building index page') { 
             steps {
                 sh "echo '${MESSAGE}' > index.html"
             }
         }
 
-        stage('Selecting the Version') { 
+        stage('Selecting index page version') { 
             when {
                 expression {
                     params.displayVersion 
@@ -36,10 +36,10 @@ pipeline {
             steps {
                 script {
                     if (params.VERSION == "1.0" ) {
-                    sh "echo ' | Test is: ${VERSION}' >> index.html"        
+                        sh "echo 'Version: ${VERSION}' >> index.html"        
                     }
                     else if (params.VERSION == "2.0" ) {
-                        sh "echo ' | Build is: ${VERSION}' >> index.html"        
+                        sh "echo 'Version: ${VERSION}' >> index.html"        
                     }
                 }
                 
@@ -47,27 +47,21 @@ pipeline {
         }
 
         stage('Building Docker Image') { 
-            when {
-                expression {
-                    params.VERSION == '1.0'
-                }
-            }
             steps {
-                echo "Building image"
-                // sh "podman build -t jenkins-nginx-test-image ."
-            }
-
-            
+                echo "Building docker image"
+                sh "podman build -t jenkins-nginx-test-image ."
+            }          
         }
         stage('Running Docker Image') { 
             steps {
-                sh "cat index.html"
+                echo "Running docker image"
+                sh "podman run -d -p 8090:80 jenkins-nginx-test-image"
             }
         }
 
         stage('Testing Docker Image') { 
             steps {
-                sh "cat index.html"
+                sh "curl http://localhost:8090"
             }
         }
     }
