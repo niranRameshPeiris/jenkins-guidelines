@@ -2,9 +2,6 @@ def groovyScript
 
 pipeline {
     agent any 
-    tools{
-        docker 'docker'
-    }
     parameters{
         string(name: 'VERSION', defaultValue: 'Test', description: 'Stage to be executed')
     }
