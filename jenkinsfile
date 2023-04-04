@@ -22,7 +22,7 @@ pipeline {
                 script {
                     groovyScript.startingMessage()
                 }
-                sh 'pwd'
+                sh 'ls'
                 script{
                     sh 'docker images'
                 }
