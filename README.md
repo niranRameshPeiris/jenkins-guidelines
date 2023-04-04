@@ -1,33 +1,54 @@
-# Basic Script
+# Guidelines - Jenkins
+## Basic Script
 ```
 pipeline {
     agent any 
     stages {
         stage('Build') { 
             steps {
-                echo "build..."
+                echo "build stage..."
             }
         }
     }
 }
 ```
-# POST 
-Execute logic after all stages executed 
+## POST
+This section can be used to execute logic after all stages have been executed 
 ```
 post{
     always{
-        // execuet even fail or success
+        // get executed even fail or success
     }
     success{
-        // only buil success
+        // only get executed if the build was succesful
     }
     failure{
-        // if build fail
+        // only get executed if the build was a failure
     }
 }
 ```
+## Enviroment Variables
 
-# Conditions
+### Check all the default enviroment variables
+`http://localhost:8080/env-vars.html/`
+
+### Define Enviroment Variables
+```
+pipeline {
+    agent any 
+    enviroment{
+        VERSION = '1.3.0'
+    }
+    stages {
+        stage('Build') { 
+            steps {
+                echo "Version: ${VERSION}"
+            }
+        }
+    }
+}
+```
+## Conditions
 ```
 pipeline {
     agent any 
@@ -35,10 +56,10 @@ pipeline {
         stage('Build') { 
             when {
                 expression {
-                    BRANCH_NAME == 'dev' || BRANCH_NAME == 'master'
+                    env.VERSION == '1.0' || BRANCH_NAME == 'master'
                 }
             }
-            // these steps only eecute if above is true
+            // these steps only execute if above is true
             steps {
                 echo "build..."
             }
@@ -46,33 +67,8 @@ pipeline {
     }
 }
 ```
-
-# Enviroment Variables
-
-## Check all the by default available variable in Jenkins
-`http://localhost:8080/env-vars.html/`
-
-## Define Enviroment Variables
-```
-pipeline {
-    agent any 
-    enviroment{
-        // these will available in every stages
-        NEW_VERSION = '1.3.0'
-    }
-    stages {
-        stage('Build') { 
-            steps {
-                echo "build..."
-                echo "Building version ${NEW_VERSION}"
-            }
-        }
-    }
-}
-```
-
 # Using Credintials
-First define credentials and then follow below
+Before trying this out we have to define credentials 
 ```
 enviroment{
         CREDENTIALS = credentials('id')
