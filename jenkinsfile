@@ -17,8 +17,8 @@ pipeline {
         }
         stage('Building Docker Image') { 
             steps {
-                STAGE = "BUILD"
                 script {
+                    STAGE = "BUILD"
                     groovyScript.startingMessage()
                 }
                 sh 'ls'
@@ -30,8 +30,8 @@ pipeline {
         }
         stage('Running Docker Image') { 
             steps {
-                STAGE = "RUNNING"
                 script {
+                    STAGE = "RUNNING"
                     groovyScript.startingMessage("RUNNING")
                 }
 
