@@ -16,6 +16,7 @@ pipeline {
         stage('Init') { 
             steps {
                 echo "========================================================="
+                echo "========================================================="
                 script {
                     groovyScript = load "script.groovy"
                     groovyScript.initMessage()
@@ -59,6 +60,7 @@ pipeline {
                 sh "podman build -t jenkins-nginx-test-image ."
             }          
         }
+        
         stage('Running Docker Image') { 
             steps {
                 echo "Running docker image"
