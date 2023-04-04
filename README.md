@@ -76,10 +76,10 @@ enviroment{
 ```
 ```
 withCredentials([
-    usernamePassword(credentials: 'id', usernameVariable: USER, passwordVariable: PWD)
-]){
-    echo "User ${USER}"
-}
+    usernamePassword(credentialsId: 'nginx-credentials', usernameVariable: "USER", passwordVariable: "PWD")
+]) {
+    sh "echo 'Nginx Credentials: ${USER} | ${PWD}' >> index.html" 
+} 
 ```
 
 # Tools
@@ -91,15 +91,14 @@ pipeline {
     }
 }
 ```
-
 # Parameters
 ```
 pipeline {
     agent any 
     parameters {
-        string(name: 'VERSION', defaultValue: '', description: 'version to deploy')
-        choice(name: 'VERSION', choices: [ '1.0', '1.2'] , description: 'new one')
-        booleanParam(name: 'executeTests', defaultValue: true, description: '')
+        string(name: 'VERSION', defaultValue: '', description: 'Description here')
+        choice(name: 'VERSION', choices: [ '1.0', '1.2'] , description: 'Description here')
+        booleanParam(name: 'executeTests', defaultValue: true, description: 'Description here')
     }
     stages {
         stage('Build') { 
@@ -110,18 +109,17 @@ pipeline {
             }
             // eexute only if executeTests to true
             steps {
-                echo "${VERSION}"
+                echo "${params.VERSION}"
                 echo "build..."
             }
         }
     }
 }
 ```
-
 # Write Groovy Scripts
 
 ```
-def gv
+def groovyScript
 
 pipeline {
     agent any 
@@ -130,7 +128,7 @@ pipeline {
             steps {
                 script {
                     // write groovy script
-                    gv = load "script.groovy"
+                    groovyScript = load "script.groovy"
                 }
             }
         }
@@ -144,11 +142,6 @@ pipeline {
     }
 }
 ```
-
-
-
-
-
 
 # Reference
 https://www.youtube.com/watch?v=7KCS70sCoK0&t=481s&ab_channel=TechWorldwithNana
