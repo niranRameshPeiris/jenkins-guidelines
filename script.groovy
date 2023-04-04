@@ -1,9 +1,9 @@
 def startingMessage(){
-    echo "Starting stage: ${params.VERSION}"
+    echo "Starting stage: ${STAGE}"
 }
 
 def endingMessage(){
-    echo "Ending stage: ${params.VERSION}"
+    echo "Ending stage: ${STAGE}"
 }
 
 return this

@@ -1,4 +1,5 @@
 def groovyScript
+def STAGE
 
 pipeline {
     agent any 
@@ -16,11 +17,12 @@ pipeline {
         }
         stage('Building Docker Image') { 
             steps {
+                STAGE = "BUILD"
                 script {
                     groovyScript.startingMessage()
                 }
                 sh 'ls'
-                sh "podman version"
+                // sh "podman build -t jenkins-nginx-test-image ."
                 script {
                     groovyScript.endingMessage()
                 }
@@ -28,13 +30,14 @@ pipeline {
         }
         stage('Running Docker Image') { 
             steps {
+                STAGE = "RUNNING"
                 script {
-                    groovyScript.startingMessage()
+                    groovyScript.startingMessage("RUNNING")
                 }
 
 
                 script {
-                    groovyScript.endingMessage()
+                    groovyScript.endingMessage("RUNNING")
                 }
             }
         }
