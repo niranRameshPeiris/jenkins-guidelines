@@ -23,7 +23,7 @@ pipeline {
         stage('Building Docker Image') { 
             when {
                 expression {
-                    VERSION == '1.0'
+                    params.VERSION == '1.0'
                 }
             }
             steps {
